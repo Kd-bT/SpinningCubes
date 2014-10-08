@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+	<meta charset="UTF-8" />
+	<title>3D rotating cube navigation</title>
+	
+    <script type="text/javascript" src="prototype.js"></script>	
+  	<style type="text/css" media="screen">
+    
+    body {
+      background-color: rgba(20, 50, 20, 0.2);
+    }
+    
+    
+    #wrapper {
+      padding: 50px;
+    }
+    
+    
+    #experiment {
+      -webkit-perspective: 800; 
+      -webkit-perspective-origin: 400px 300px;
+    }
+    
+    #cube1 {
+      position: absolute;
+      margin: 0 auto;
+      left:200px;
+      top:100px;
+      height: 400px;
+      width: 400px;
+      -webkit-transition-property: -webkit-transform;
+      -webkit-transition-duration: 2s;
+      -webkit-transition-timing-function: linear;
+      -webkit-transform-style: preserve-3d;
+    }
+    
+    #cube2 {
+      position: absolute;
+      margin: 0 auto;
+      left:300px;
+      top:200px;
+      height: 200px;
+      width: 200px;
+      -webkit-transition-property: -webkit-transform;
+      -webkit-transition-duration: 2s;
+      -webkit-transition-timing-function: linear;
+      -webkit-transform-style: preserve-3d;
+      -webkit-transform: rotateX(45deg) rotateY(45deg);      
+    }
+    
+    #cube3 {
+      position: absolute;
+      margin: 0 auto;
+      left:350px;
+      top:250px;
+      height: 100px;
+      width: 100px;
+      -webkit-transition-property: -webkit-transform;
+      -webkit-transition-duration: 2s;
+      -webkit-transition-timing-function: linear;
+      -webkit-transform-style: preserve-3d; 
+    }
+
+    .face1 {
+      position: absolute;
+      height: 360px;
+      width: 360px;
+      padding: 20px;
+      background-color: rgba(80, 20, 20, 0.25);
+      font-size: 72px;
+      line-height: 2em;
+      text-align: center;
+      color: #fff;
+      border: 1px solid #fff;
+      -webkit-border-radius: 30px;
+    }   
+
+    .face2 {
+      position: absolute;
+      height: 180px;
+      width: 180px;
+      padding: 10px;
+      background-color: rgba(50, 50, 80, 0.5);
+      font-size: 60px;
+      line-height: 1em;
+      text-align:center;
+      color: #999;
+      border: 2px solid #fff;
+      -webkit-border-radius: 15px;
+     }   
+
+    .face3 {
+      position: absolute;
+      height: 90px;
+      width: 90px;
+      padding: 5px;
+      background-color: rgba(20, 80, 100, 0.75);
+      font-size: 48px;
+      line-height: 0em;
+      text-align:center;
+      color: #fff;
+      border: 3px solid #fff;
+      -webkit-border-radius: 8px;
+     }   
+
+    #cube1 .one  {
+      -webkit-transform: rotateX(90deg) translateZ(200px);
+    }
+    #cube1 .two {
+      -webkit-transform: translateZ(200px);
+    }
+
+    #cube1 .three {
+      -webkit-transform: rotateY(90deg) translateZ(200px);
+    }
+
+    #cube1 .four {
+      -webkit-transform: rotateY(180deg) translateZ(200px);
+    }
+
+    #cube1 .five {
+      -webkit-transform: rotateY(-90deg) translateZ(200px);
+    }
+
+    #cube1 .six {
+      -webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(200px) ;
+    }
+
+    #cube2 .one  {
+      -webkit-transform: rotateX(90deg) translateZ(100px);
+    }
+    #cube2 .two {
+      -webkit-transform: translateZ(100px);
+    }
+
+    #cube2 .three {
+      -webkit-transform: rotateY(90deg) translateZ(100px);
+    }
+
+    #cube2 .four {
+      -webkit-transform: rotateY(180deg) translateZ(100px);
+    }
+
+    #cube2 .five {
+      -webkit-transform: rotateY(-90deg) translateZ(100px);
+    }
+
+    #cube2 .six {
+      -webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(100px) ;
+    }
+
+    #cube3 .one  {
+      -webkit-transform: rotateX(90deg) translateZ(50px);
+    }
+    #cube3 .two {
+      -webkit-transform: translateZ(50px);
+    }
+
+    #cube3 .three {
+      -webkit-transform: rotateY(90deg) translateZ(50px);
+    }
+
+    #cube3 .four {
+      -webkit-transform: rotateY(180deg) translateZ(50px);
+    }
+
+    #cube3 .five {
+      -webkit-transform: rotateY(-90deg) translateZ(50px);
+    }
+
+    #cube3 .six {
+      -webkit-transform: rotateX(-90deg) rotate(180deg) translateZ(50px) ;
+    }
+
+  </style>
+  
+  <script type="text/javascript">
+  
+  	var xAngle1 = 0, yAngle1 = 0;
+  	var xAngle2 = 45, yAngle2 = 45;
+    var xAngle3 = 0, yAngle3 = 0;
+	document.addEventListener('keydown', function(e)
+	{
+		switch(e.keyCode)
+		{
+			
+			case 37: // left
+				yAngle1 -= 90;
+				yAngle2 += 90;
+        yAngle3 += 90;
+				break;
+			
+			case 38: // up
+				xAngle1 += 90;				
+				xAngle2 -= 90;
+        xAngle3 -= 90;				
+				break;
+			
+			case 39: // right
+				yAngle1 += 90;
+				yAngle2 -= 90;
+        yAngle3 -= 90;
+				break;
+				
+			case 40: // down
+				xAngle1 -= 90;
+				xAngle2 += 90;
+        xAngle3 += 90;
+				break;
+		};
+		
+		$('cube1').style.webkitTransform = "rotateX("+xAngle1+"deg) rotateY("+yAngle1+"deg)";	
+		$('cube2').style.webkitTransform = "rotateX("+xAngle2+"deg) rotateY("+yAngle2+"deg)";
+    $('cube3').style.webkitTransform = "rotateX("+xAngle3+"deg) rotateY("+yAngle3+"deg)"; 	
+	}, false);
+  	
+  </script>
+	
+</head>
+
+    <body>
+
+        <div id="wrapper">
+            <div id="experiment">	
+                <div id="cube1">
+                    <div class="face1 one">
+                        <p>1</p>
+                    </div>
+                    <div class="face1 two">
+                        <p>2</p>
+                    </div>
+                    <div class="face1 three">
+                        <p>3</p>
+                    </div>
+                    <div class="face1 four">
+                        <p>4</p>
+                    </div>
+                    <div class="face1 five">
+                        <p>5</p>
+                    </div>
+                    <div class="face1 six">
+                        <p>6</p>
+                    </div>
+                </div>	
+                <div id="cube2">
+                    <div class="face2 one">
+                        <p>1</p>
+                    </div>
+                    <div class="face2 two">
+                        <p>2</p>
+                    </div>
+                    <div class="face2 three">
+                        <p>3</p>
+                    </div>
+                    <div class="face2 four">
+                        <p>4</p>
+                    </div>
+                    <div class="face2 five">
+                        <p>5</p>
+                    </div>
+                    <div class="face2 six">
+                        <p>6</p>
+                    </div>
+                </div>	
+                <div id="cube3">
+                    <div class="face3 one">
+                        <p>1</p>
+                    </div>
+                    <div class="face3 two">
+                        <p>2</p>
+                    </div>
+                    <div class="face3 three">
+                        <p>3</p>
+                    </div>
+                    <div class="face3 four">
+                        <p>4</p>
+                    </div>
+                    <div class="face3 five">
+                        <p>5</p>
+                    </div>
+                    <div class="face3 six">
+                        <p>6</p>
+                    </div>
+                </div>  
+            </div>	
+        </div>		
+
+    </body>
+    
+</html>
